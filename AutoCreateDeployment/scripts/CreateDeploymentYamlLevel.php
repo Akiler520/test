@@ -1,5 +1,7 @@
 <?php
 /**
+ * add the menu of the deployment in front page
+ *
  * User: martin
  * Date: 2017/3/23
  * Time: 16:41
@@ -7,7 +9,7 @@
 
 if($argc < 4){
     echo "[Error] Parameter is invalid \r\n";
-    echo "usage: php addDeployFrontConf.php [main-qa path] [host section] [project type] [project name] \r\n";
+    echo "usage: php CreateDeploymentYamlLevel.php [main-qa path] [host section] [project type] [project name] \r\n";
     exit;
 }
 

@@ -20,7 +20,6 @@ Arguments:
     -t <repositoryType>                 the type of project,such as product,base,admin,tff,finance,user,order, default:base
     -c <creator>                        creator of env deploy, default:system
     -f <parentHost>                     parent of hostSection, default:qa1
-    -P <phpCommandPath>                 path of php commands, used to update main-qa.yaml and the cem->env table, default: /home/commands/auto_create_deploy
     -s <cemService>                     the URL of cem service, default: cem.services.qa1.tff.com
     -N <ConfigPath>                     the conf path of nginx, default: /opt/app/nginx/conf
     -D <deployConfigPath>               the conf path of deploy yaml file, default: /opt/app/deployment/configs/projects/qa
@@ -45,7 +44,7 @@ pathFrontDeployMain="/opt/app/deployment/configs"
 creator="system"
 parentHost="qa1"
 cemServer="cem.services.qa1.tff.com"
-phpCommandPath="/home/commands/AutoCreateDeploy"
+basePath=$(cd `dirname $0`; pwd)
 
 while getopts ":H:u:g:p:d:r:t:i:c:f:P:s:N:D:M:" opt
 do
@@ -77,9 +76,6 @@ do
         f)
             parentHost=$OPTARG
             echo "[Params] parentHost of host section: $OPTARG";;
-        P)
-            phpCommandPath=$OPTARG
-            echo "[Params] Path of php Command: $OPTARG";;
         s)
             cemServer=$OPTARG
             echo "[Params] url of cem server: $OPTARG";;
@@ -154,11 +150,18 @@ sh ./scripts/GenerateNginxConfigFile.sh ${URL} ${pathRoot} ${repositoryName} ${p
 sh ./scripts/GenerateRepositoryCode.sh ${repositoryPath} ${repositoryName} ${repositoryType} ${repositoryGit} ${pathFrontDeploy} ${pathDeployment} ${hostSection} ${URL} ${cemServer}
 
 ### insert main host into cem->env ###
-if  [ -n "$phpCommandPath" ] ; then
-    echo "[config] update config by php commands"
-    php ${phpCommandPath}/updateEnvDeploy.php ${hostSection} ${creator} ${parentHost}
-    php ${phpCommandPath}/addDeployFrontConf.php ${pathFrontDeployMain}/main-qa.yaml ${hostSection} ${repositoryType} ${repositoryName}
-fi
+php ${basePath}/scripts/CreateDeploymentSection.php ${hostSection} ${creator} ${parentHost}
+php ${basePath}/scripts/CreateDeploymentYamlLevel.php ${pathFrontDeployMain}/main-qa.yaml ${hostSection} ${repositoryType} ${repositoryName}
 
 ### restart nginx and deployment service ###
+echo "
+************************************
+[Service] restarting related service ......
+"
+
 /etc/init.d/nginx restart && supervisorctl restart deployment
+
+echo "
+[success] Generate successful
+************************************
+"

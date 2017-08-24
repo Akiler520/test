@@ -1,6 +1,7 @@
 <?php
 /**
- * usage: php updateEnvDeploy.php [host section] [creator] [parent host]
+ * create new deployment section in cem->env
+ * usage: php CreateDeploymentSection.php [host section] [creator] [parent host]
  *
  * User: martin
  * Date: 2017/3/22
@@ -10,7 +11,7 @@
 // check the parameters of command
 if($argc < 3){
     echo "host section, creator are required\r\n";
-    echo "usage: php updateEnvDeploy.php [host section] [creator] [parent host]\r\n";
+    echo "usage: php CreateDeploymentSection.php [host section] [creator] [parent host]\r\n";
     exit;
 }
 
@@ -19,7 +20,7 @@ $owner = $argv[2];
 
 if(!$hostName || !$owner){
     echo "host section, creator are required\r\n";
-    echo "usage: php updateEnvDeploy.php [host section] [ip] [creator] [parent host]\r\n";
+    echo "usage: php CreateDeploymentSection.php [host section] [ip] [creator] [parent host]\r\n";
     exit;
 }
 
@@ -54,7 +55,7 @@ $HostList = $mysqlObj->select("`name`='{$hostName}'");
 if(!$HostList){
     // try to add new one
     $hostInfo = [
-        'name'  => $hostName,
+        'name'          => $hostName,
         'parent_name'   => $parentName,
         'created_by'    => $owner,
         'created_at'    => date("Y-m-d H:i:s"),
@@ -423,7 +424,4 @@ class Martin_Mysql{
     {
         return mysqli_close($this->connectID);
     }
-
 }
-
-
