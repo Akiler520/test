@@ -1,0 +1,10 @@
+repositories:
+    @@repositoryName@@:
+        path: "@@repositoryPath@@/@@hostSection@@/@@repositoryName@@"
+        deploy_path: "@@pathDeploymentRepository@@/@@repositoryName@@"
+        command: "goconfenv-manager -e @@hostSection@@ -c cem.conf -p default -h @@cemServer@@"
+
+    yiimodel:
+        path: "/opt/repos/qa/yiimodel"
+        deploy_path: "@@pathDeploymentRepository@@/yiimodel"
+        command: "composer install"

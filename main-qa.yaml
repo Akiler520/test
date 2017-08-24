@@ -1,0 +1,133 @@
+    chandresh:
+        base:
+            - "base"
+---
+projects:
+    qa1:
+        mobile:
+            - "h5mobile"
+            - "trest"
+            - "tsvcs"
+            - "h5app_backend"
+            - "jpush"
+        dahuoche:
+            - "dahuoche"
+        distribution:
+            - "distributionsvcs"
+            - "distribution_api"
+            - "distribution_admin"
+        finance:
+            - "payment"
+            - "financesvcs"
+        order:
+            - "ordersvcs"
+            - "workorder"
+        user:
+            - "usersvcs"
+            - "account"
+            - "user_admin"
+        tff:
+            - "yiifrontend"
+            - "provider"
+        base:
+            - "opspsvcs"
+            - "risksvcs"
+            - "search"
+            - "alarm"
+        product:
+            - "tour"
+            - "allproduct"
+            - "activity"
+            - "price"
+            - "ticket"
+            - "stock"
+            - "product_api"
+            - "hotelsvcs"
+            - "event_services"
+            - "airport"
+            - "combine"
+            - "option"
+            - "shuttle"   
+        additional:
+            - "comment"
+            - "photo_sharing"
+            - "question"
+            - "recommendation"
+        admin:
+            - "administration"
+            - "yiiadmin"
+            - "package_tour"
+            - "promotion"
+        bi:
+            - "bi_dsvcs"
+            - "bi_front"
+            
+    qa2:
+        tff:
+            - "yiifrontend"
+        admin:
+            - "administration"
+            - "yiiadmin"
+        base:
+            - "search"
+        product:
+            - "tour"
+            - "allproduct"
+            - "activity"
+            - "combine"
+            - "airport"
+            - "event_services"
+            - "option"
+            - "price"
+            - "product_api"
+            - "shuttle"
+            - "stock"
+            - "ticket"
+        user:
+            - "usersvcs"
+            - "account"
+            - "user_admin"
+        order:
+            - "ordersvcs"
+            - "workorder"
+    qa3:
+        tff:
+            - "yiifrontend"
+        admin:
+            - "administration"
+            - "yiiadmin"
+        base:
+            - "search"
+        product:
+            - "tour"
+            - "allproduct"
+            - "activity"
+            - "combine"
+            - "airport"
+            - "event_services"
+            - "option"
+            - "price"
+            - "product_api"
+            - "shuttle"
+            - "stock"
+            - "ticket"
+        user:
+            - "usersvcs"
+            - "account"
+            - "user_admin"
+        order:
+            - "ordersvcs"
+            - "workorder"
+    martin:
+        base:
+            - "search_sphinx_services"
+        product:
+            - "shuttle_services"
+db:
+    host: "127.0.0.1"
+    port: 3306
+    username: "web"
+    password: "Xz2Pw4QeM8ndT"
+    dbname: "tff"
+
+

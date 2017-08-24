@@ -1,0 +1,14 @@
+---
+domain: "http://search.services.qa4.tff.com"
+name: "search_sphinx_services"
+servers:
+    -
+        host: "localhost"
+        is_local: true
+        owner: "apache:apache"
+        command: "ls"
+repositories:
+    search_sphinx_services:
+        path: "/opt/repos/qa/qa1/search_sphinx_services"
+        deploy_path: "/opt/app/nginx/html/qa4/search_sphinx_services"
+        command: "composer install && goconfenv-manager -e qa1 -c cem.conf -p default -h cem.services.qa1.tff.com"

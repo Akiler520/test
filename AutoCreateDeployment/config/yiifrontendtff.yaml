@@ -1,0 +1,10 @@
+repositories:
+    @@repositoryName@@:
+        path: "@@repositoryPath@@/@@hostSection@@/@@repositoryName@@"
+        deploy_path: "@@pathDeploymentRepository@@/@@repositoryName@@"
+        command: "goconfenv-manager -e @@hostSection@@ -c cem.conf -p default -h @@cemServer@@ && sed -i 's/\\\/\\\/@@UNCOMMENT@@//g' index.php"
+
+    yiimodel:
+        path: "/opt/repos/qa/yiimodel"
+        deploy_path: "@@pathDeploymentRepository@@/yiimodel"
+        command: "sed -i 's/hotel.services.tff.com/hotel.services.@@hostSection@@.tff.com/g'  extensions/services/config/main.php && composer install && goconfenv-manager -e @@hostSection@@ -c cem.conf -p default -h @@cemServer@@"

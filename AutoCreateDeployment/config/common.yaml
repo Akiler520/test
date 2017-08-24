@@ -1,0 +1,9 @@
+---
+domain: "http://@@URL@@"
+name: "@@repositoryName@@"
+servers:
+    -
+        host: "localhost"
+        is_local: true
+        owner: "apache:apache"
+        command: "ls"

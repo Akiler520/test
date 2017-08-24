@@ -1,0 +1,5 @@
+repositories:
+    @@repositoryName@@:
+        path: "@@repositoryPath@@/@@hostSection@@/@@repositoryName@@"
+        deploy_path: "@@pathDeploymentRepository@@"
+        command: "composer install && goconfenv-manager -e @@hostSection@@ -c cem.conf -p default -h @@cemServer@@"
