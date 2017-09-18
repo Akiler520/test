@@ -1,4 +1,4 @@
 <?php
-echo md5("123456");
+echo date("Y-m-d H:i:s", 1505491200);
 
 

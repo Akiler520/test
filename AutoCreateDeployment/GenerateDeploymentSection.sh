@@ -23,7 +23,7 @@ Arguments:
     -s <cemService>                     the URL of cem service, default: cem.services.qa1.tff.com
     -N <ConfigPath>                     the conf path of nginx, default: /opt/app/nginx/conf
     -D <deployConfigPath>               the conf path of deploy yaml file, default: /opt/app/deployment/configs/projects/qa
-    -M <mainDeployConfigPath>           the conf path of deploy main-qa.yaml file, default: /opt/app/deployment/configs
+    -M <mainDeployConfigPath>           the conf path of deploy main-qa.yaml file, default: /opt/app/deployment/configs/main-qa.yaml
     -h or --help                        print help (this message) and exit
 
 ******************************************
@@ -40,7 +40,7 @@ pathDeployment="/opt/app/nginx/html"
 pathRoot="public"
 pathNginxConf="/opt/app/nginx/conf"
 pathFrontDeploy="/opt/app/deployment/configs/projects/qa"
-pathFrontDeployMain="/opt/app/deployment/configs"
+pathFrontDeployMain="/opt/app/deployment/configs/main-qa.yaml"
 creator="system"
 parentHost="qa1"
 cemServer="cem.services.qa1.tff.com"
@@ -151,7 +151,7 @@ sh ./scripts/GenerateRepositoryCode.sh ${repositoryPath} ${repositoryName} ${rep
 
 ### insert main host into cem->env ###
 php ${basePath}/scripts/CreateDeploymentSection.php ${hostSection} ${creator} ${parentHost}
-php ${basePath}/scripts/CreateDeploymentYamlLevel.php ${pathFrontDeployMain}/main-qa.yaml ${hostSection} ${repositoryType} ${repositoryName}
+php ${basePath}/scripts/CreateDeploymentYamlLevel.php ${pathFrontDeployMain} ${hostSection} ${repositoryType} ${repositoryName}
 
 ### restart nginx and deployment service ###
 echo "
