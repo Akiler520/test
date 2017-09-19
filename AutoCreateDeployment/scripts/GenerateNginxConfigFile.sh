@@ -27,87 +27,39 @@ function createConfNginx(){
 
     touch ${config_file}
 
-    if [ ${repositoryName} == "yiiadmin" ] ; then
-        createConfNginxYiiadmin
-    elif [ ${repositoryName} == "yiifrontendtff" ]; then
-        createConfNginxYiifrontend
-    else
-        createConfNginxLaravel
-    fi
+    createConfOfWebServer
 
     echo "[Nginx]create config file file new repository: ${URL}, ${config_file}"
-}
-
-#############################################
-## create config file of nginx for yiiadmin #
-#############################################
-function createConfNginxYiiadmin(){
-    echo "server {" > ${config_file}
-    echo "    server_name ${URL};" >> ${config_file}
-    echo "    root ${pathRoot}/${repositoryName};" >> ${config_file}
-    echo "    error_log ${log_path}/${URL}.error.log;" >> ${config_file}
-    echo "    " >> ${config_file}
-    echo "    include laravel;" >> ${config_file}
-    echo "}" >> ${config_file}
-}
-
-################################################
-## create config file of nginx for Yiifrontend #
-################################################
-function createConfNginxYiifrontend(){
-    echo "server {" > ${config_file}
-    echo "    listen 80;" >> ${config_file}
-    echo "    listen 443 ssl;" >> ${config_file}
-
-    echo "    server_name ${URL};" >> ${config_file}
-    echo "    root ${pathRoot}/${repositoryName};" >> ${config_file}
-    echo "    error_log ${log_path}/${URL}.error.log;" >> ${config_file}
-
-    echo "    " >> ${config_file}
-
-    echo "    location / {" >> ${config_file}
-    echo "        index index.php;" >> ${config_file}
-    echo "        autoindex on;" >> ${config_file}
-    echo "        try_files \$uri \$uri/ /index.php?\$query_string;" >> ${config_file}
-    echo "    }" >> ${config_file}
-
-    echo "    " >> ${config_file}
-
-    echo "    location ~ index\.php$ {" >> ${config_file}
-    echo "        include fastcgi.conf;" >> ${config_file}
-    echo "        fastcgi_param  SERVER_NAME \$host;" >> ${config_file}
-    echo "        fastcgi_pass   127.0.0.1:9000;" >> ${config_file}
-    echo "        fastcgi_param  FILE_STORAGE_PATH /opt/data;" >> ${config_file}
-    echo "        fastcgi_param  FILE_STORAGE_PREFIX f1;" >> ${config_file}
-    echo "        include fastcgi_params;" >> ${config_file}
-    echo "        fastcgi_index  index.php;" >> ${config_file}
-    echo "    }" >> ${config_file}
-
-    echo "    " >> ${config_file}
-
-    echo "    include ssl.inc;" >> ${config_file}
-    echo "}" >> ${config_file}
-
-    echo "createConfNginxYiifrontend"
 }
 
 ####################################################
 ## create config file of nginx for Laravel project #
 ####################################################
-function createConfNginxLaravel(){
-    echo "server {" > ${config_file}
+function createConfOfWebServer(){
+    ServeName=""
+    configFile=./config/nginx/common.conf
+    logFile="${log_path}/${URL}.error.log"
 
     if [ ${repositoryName} == "administration" ] ; then
-        echo "    server_name ${URL} *.${URL};" >> ${config_file}
+        ServeName=${URL}\ *.${URL}
     else
-        echo "    server_name ${URL};" >> ${config_file}
+        ServeName=${URL}
     fi
 
-    echo "    root ${pathRoot};" >> ${config_file}
-    echo "    error_log ${log_path}/${URL}.error.log;" >> ${config_file}
-    echo "    " >> ${config_file}
-    echo "    include laravel;" >> ${config_file}
-    echo "}" >> ${config_file}
+    if [ ${repositoryName} == "yiiadmin" ] ; then
+        pathRoot=${pathRoot}/${repositoryName}
+    fi
+
+    if [ ${repositoryName} == "yiifrontendtff" ] ; then
+        pathRoot=${pathRoot}/${repositoryName}
+        configFile=./config/nginx/yiifrontend.conf
+    fi
+
+    cat ${configFile} > ${config_file}
+
+    sed -i "s#@@URL@@#${ServeName}#g" ${config_file}
+    sed -i "s#@@pathRoot@@#${pathRoot}#g" ${config_file}
+    sed -i "s#@@logFile@@#${logFile}#g" ${config_file}
 }
 
 createConfNginx

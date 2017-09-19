@@ -155,7 +155,7 @@ php ${basePath}/scripts/CreateDeploymentYamlLevel.php ${pathFrontDeployMain} ${h
 
 ### restart nginx and deployment service ###
 echo "
-************************************
+**************************************************
 [Service] restarting related service ......
 "
 
@@ -163,5 +163,5 @@ echo "
 
 echo "
 [success] Generate successful
-************************************
+**************************************************
 "
