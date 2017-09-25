@@ -23,7 +23,7 @@ function createConfNginx(){
         mkdir -p "${log_path}"
     fi
 
-    config_file="${config_path}/${URL}.conf"
+    config_file="${config_path}/${repositoryName}.conf"
 
     touch ${config_file}
 
